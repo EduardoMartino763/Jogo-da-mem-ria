@@ -1,27 +1,33 @@
-const cards = document.querySelectorAll('.card');
-
-let hasFlippedCard = false;
+const cards = document.querySelectorAll('.card'); //Tive ajuda de IA no JS, mesmo assim nn consegui
+let flippedCard = false;
 let firstCard, secondCard;
 let lockBoard = false;
+
+cards.forEach(card => {
+    card.addEventListener('click', flipCard);
+});
 
 function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
 
-    this.classList.add('flip');
-
-    if (!hasFlippedCard) {
-        hasFlippedCard = true;
+    this.classList.add('flipped');
+    if (!flippedCard) {
+        flippedCard = true;
         firstCard = this;
         return;
     }
 
     secondCard = this;
-    checkForMatch();
+    lockBoard = true;
+
+    checkMatch();
 }
 
-function checkForMatch() {
-    const isMatch = firstCard.querySelector('.front').src === secondCard.querySelector('.front').src;
+function checkMatch() {
+    const isMatch = 
+    firstCard.querySelector('.verso'). src ===
+    secondCard.querySelector('.verso').src;
 
     if (isMatch) {
         disableCards();
@@ -33,29 +39,19 @@ function checkForMatch() {
 function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
+
     resetBoard();
 }
 
 function unflipCards() {
-    lockBoard = true;
-    setTimeout() => {
-        firstCard.classList.remove('flip');
-        secondCard.classList.remove('flip');
+    setTimeout(() => {
+        firstCard.classList.remove('flipped');
+        secondCard.classList.remove('flipped');
         resetBoard();
-    }
+    }, 1000);
 }
 
 function resetBoard() {
-    [hasFlippedCard, lockBoard] = [false, false];
+    [flippedCard, lockBoard] = [false, false];
     [firstCard, secondCard] = [null, null];
 }
-
-(function shuffle()  {
-    cards.forEach(card => {
-        let randomPos = Math.floor(Math.random() * 12);
-        card.computedStyleMap.order = randomPos;
-    });
-})();
-
-card.forEach(card => card.addEventListener('click', flipCard));
-
