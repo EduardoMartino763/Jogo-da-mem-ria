@@ -1,4 +1,4 @@
-const cards = document.querySelectorAll('.card'); //Tive ajuda de IA no JS, mesmo assim nn consegui
+const cards = document.querySelectorAll('.card'); //Tive ajuda de IA no JS, mesmo assim nn consegui, o verso das imagens nn apareciam e não reagiam ao click
 let flippedCard = false;
 let firstCard, secondCard;
 let lockBoard = false;
